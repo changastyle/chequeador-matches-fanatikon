@@ -12,8 +12,9 @@ public class Telnet {
     //private String prompt = "%";
     private String prompt = "#";
     
-    public Telnet(String server, String user, String password) 
+    public Telnet(String server, String user, String password,String promptEsperado) 
     {
+        prompt = promptEsperado;
         try {
             // Connect to the specified server
             telnet.connect(server, 23);
@@ -53,7 +54,7 @@ public class Telnet {
             boolean found = false;
             char ch = (char) in.read();
             while (true) {
-                System.out.print(ch);
+                //System.out.print(ch);
                 sb.append(ch);
                 if (ch == lastChar) {
                     if (sb.toString().endsWith(pattern)) {
@@ -78,10 +79,11 @@ public class Telnet {
         }
     }
 
-    public String sendCommand(String command) {
+    public String sendCommand(String command,String siguientePrompt) {
         try {
             write(command);
-            return readUntil(prompt + " ");
+            //return readUntil(prompt + " ");
+            return readUntil(siguientePrompt);
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -95,5 +97,15 @@ public class Telnet {
             e.printStackTrace();
         }
     }
+
+    public String getPrompt() {
+        return prompt;
+    }
+
+    public void setPrompt(String prompt) {
+        this.prompt = prompt;
+    }
+    
+    
 
 }

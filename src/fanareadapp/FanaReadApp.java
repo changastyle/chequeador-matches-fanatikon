@@ -36,18 +36,18 @@ public class FanaReadApp
     {
         int drawDeHoy = DrawResolver.dameDrawDeHoy() ;
         System.out.println("DRAW: " + drawDeHoy);
-
+        System.out.println("GENERANDO REPORTE..");
+        
         //DEBO HACER UN BOS A LA OPCION 11:
-        Telnet telnet = new Telnet("192.168.5.200", "root", "tecacc");
-        //System.out.println("Got Connection...");
-            telnet.sendCommand("ps ");
-            telnet.sendCommand("ls ");
-            telnet.sendCommand("ifconfig ");
-            telnet.sendCommand("uptime ");
-            telnet.disconnect();
-            System.out.println("DONE");
+        Telnet telnet = new Telnet("192.168.88.11", "l5_rdusr", "l5_rdusr","Please Enter Your Choice :");
+        
+        //telnet.setPrompt();
+        telnet.sendCommand("11","Enter Game Draw : ");
+        telnet.sendCommand("" + drawDeHoy , "REPORT FILE:");
+        
+        System.out.println("REGENERÉ EL REPORTE " +  drawDeHoy);
 
-        /*
+        
         String archivoDestino = "C:\\chequeo matches fantikon\\destino.txt";
         if(FTPDownloader.bajar("192.168.88.11", 21, "l5_rdusr", "l5_rdusr", "/f2/lotos/l5_arge/log/sys/PRINT_PDRW_4100_" + drawDeHoy + ".TXT" , archivoDestino))
         {
@@ -96,7 +96,7 @@ public class FanaReadApp
 
                 contador++;
             }
-        }*/
+        }
     }
     
     public static List<String> leerArchivo(String ruta)
