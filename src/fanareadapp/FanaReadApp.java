@@ -2,13 +2,26 @@ package fanareadapp;
 
 import java.io.BufferedReader;
 import java.io.File;
+import java.io.FileOutputStream;
 import java.io.FileReader;
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
+import java.io.PrintStream;
 import java.net.URL;
 import java.net.URLConnection;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.StringTokenizer;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import org.apache.commons.net.ftp.FTPClient;
+import org.apache.commons.net.telnet.EchoOptionHandler;
+import org.apache.commons.net.telnet.InvalidTelnetOptionException;
+import org.apache.commons.net.telnet.SimpleOptionHandler;
+import org.apache.commons.net.telnet.SuppressGAOptionHandler;
+import org.apache.commons.net.telnet.TelnetClient;
+import org.apache.commons.net.telnet.TerminalTypeOptionHandler;
 
 public class FanaReadApp 
 {
@@ -16,12 +29,25 @@ public class FanaReadApp
     public static List<String> estados = new ArrayList();
     
     
+   
+    
+    
     public static void main(String args[])
     {
         int drawDeHoy = DrawResolver.dameDrawDeHoy() ;
         System.out.println("DRAW: " + drawDeHoy);
-        
-        
+
+        //DEBO HACER UN BOS A LA OPCION 11:
+        Telnet telnet = new Telnet("192.168.5.200", "root", "tecacc");
+        //System.out.println("Got Connection...");
+            telnet.sendCommand("ps ");
+            telnet.sendCommand("ls ");
+            telnet.sendCommand("ifconfig ");
+            telnet.sendCommand("uptime ");
+            telnet.disconnect();
+            System.out.println("DONE");
+
+        /*
         String archivoDestino = "C:\\chequeo matches fantikon\\destino.txt";
         if(FTPDownloader.bajar("192.168.88.11", 21, "l5_rdusr", "l5_rdusr", "/f2/lotos/l5_arge/log/sys/PRINT_PDRW_4100_" + drawDeHoy + ".TXT" , archivoDestino))
         {
@@ -70,8 +96,9 @@ public class FanaReadApp
 
                 contador++;
             }
-        }
+        }*/
     }
+    
     public static List<String> leerArchivo(String ruta)
     {
         List<String> arrRaw = new ArrayList<String>();
