@@ -12,6 +12,7 @@ import java.net.URL;
 import java.net.URLConnection;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Scanner;
 import java.util.StringTokenizer;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -27,7 +28,7 @@ public class FanaReadApp
 {
     public static String estadoActual;
     public static List<String> estados = new ArrayList();
-    
+    public static Scanner scanner = new Scanner(System.in);
     
    
     
@@ -35,6 +36,15 @@ public class FanaReadApp
     public static void main(String args[])
     {
         int drawDeHoy = DrawResolver.dameDrawDeHoy() ;
+        hacer(drawDeHoy);
+        
+        System.out.print("INGRESE NUMERO DE OTRO DRAW PARA HACER OTRO:");
+        int otroDraw = scanner.nextInt();
+        hacer(otroDraw);
+    }
+    
+    public static void hacer(int drawDeHoy)
+    {
         System.out.println("DRAW: " + drawDeHoy);
         System.out.println("GENERANDO REPORTE..");
         
@@ -98,7 +108,6 @@ public class FanaReadApp
             }
         }
     }
-    
     public static List<String> leerArchivo(String ruta)
     {
         List<String> arrRaw = new ArrayList<String>();
